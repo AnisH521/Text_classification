@@ -1,16 +1,16 @@
 from flask import Flask, request, render_template
 import pickle
 
-app = Flask(__name__)
+main = Flask(__name__)
 
 loaded_model = pickle.load(open("model/model.pkl", "rb"))
 loaded_vectorizer = pickle.load(open('model/vec.pkl', 'rb'))
 
-@app.route("/")
+@main.route("/")
 def home():
     return render_template("index.html")
 
-@app.route("/classify", methods = ["GET", "POST"])
+@main.route("/classify", methods = ["GET", "POST"])
 def classify():
     if request.method == "POST":
 
@@ -20,5 +20,5 @@ def classify():
         return render_template("index.html", prediction_text = f"The Entered Movie Review is {output}")
 
 if __name__ == "__main__":
-    app.debug = True
-    app.run()
+    main.debug = True
+    main.run()
